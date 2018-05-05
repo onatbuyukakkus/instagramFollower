@@ -5,6 +5,8 @@ import org.brunocvcunha.instagram4j.*;
 public class InstagramUtility {
 
     public static String login(String username, String password) {
+        System.out.println(username);
+        System.out.println(password);
         Instagram4j instagram = Instagram4j.builder().username(username).password(password).build();
         instagram.setup();
         try {
