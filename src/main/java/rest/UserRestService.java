@@ -3,8 +3,10 @@ package rest;
 import javax.ejb.Stateless;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.QueryParam;
 import javax.jms.Queue;
 import javax.jms.ConnectionFactory;
 import javax.annotation.Resource;
@@ -33,10 +35,11 @@ public class UserRestService {
      * @return Http response
      */
     @POST
-    @Consumes({ "application/json" })
-    public Response addUser(User user) {
-        String message = "addUser/" + user.getUsername() + "/" + user.getPassword();
-        if(user.getUsername() == null || user.getPassword() == null) {
+    @Path("/add")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response addUser(@QueryParam("username") String username, @QueryParam("password") String password) {
+        String message = "addUser/" + username + "/" + password;
+        if(username == null || password == null) {
             return Response.status(400).entity("Missing parameters.").build();
         }
         try {
