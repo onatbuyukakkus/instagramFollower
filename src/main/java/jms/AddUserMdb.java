@@ -29,8 +29,8 @@ public class AddUserMdb extends MessageReceiver {
      */
     @Override
     public String parseMessage(String[] receivedInput) {
-        String username = receivedInput[0];
-        String password = receivedInput[1];
+        String username = receivedInput[1];
+        String password = receivedInput[2];
         return InstagramUtility.login(username, password);
         //return Storage.addUser(receivedInput);
     }
