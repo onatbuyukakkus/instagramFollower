@@ -5,6 +5,7 @@ import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 
 import core.Storage;
+import core.InstagramUtility;
 
 /**
  * This is a message driven bean which listens to queue that is provided in ActivationConfigProperty tag.
@@ -28,6 +29,9 @@ public class AddUserMdb extends MessageReceiver {
      */
     @Override
     public String parseMessage(String[] receivedInput) {
-        return Storage.addUser(receivedInput);
+        String username = receivedInput[0];
+        String password = receivedInput[1];
+        return InstagramUtility.login(username, password);
+        //return Storage.addUser(receivedInput);
     }
 }
