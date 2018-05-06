@@ -48,7 +48,7 @@ public class UserRestService {
         try {
             String response = MessageProducerJms.sendMessage(message, connectionFactory, addUserQueue);
             JSONObject jO = new JSONObject();
-            jO.accumulate("response", response);
+            jO.accumulate("text", response);
             return Response.status(200).entity(jO.toString()).build();
         }
         catch(Exception e) {
