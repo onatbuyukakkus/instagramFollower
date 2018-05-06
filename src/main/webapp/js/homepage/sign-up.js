@@ -7,8 +7,6 @@ $(document).ready(function(){
             type: "POST",
             url: "http://139.59.135.39:9090/instagram-follower-1.0-SNAPSHOT/rest/user/add?username=" + username + "&password=" + password,
             success: function(response){
-                console.log(response);
-                console.log(response.text]);
                 $("#response_message").html("</br><b>" + response.text + "</b>");
             },
             error: function(xhr) {
