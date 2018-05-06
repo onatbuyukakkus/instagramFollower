@@ -6,6 +6,6 @@
          id="WebApp_ID" version="2.5">
     <display-name>InstagramFollower</display-name>
     <welcome-file-list>
-        <welcome-file>/templates/homepage/homepage.html</welcome-file>
+        <welcome-file>/templates/homepage/sign-in.html</welcome-file>
     </welcome-file-list>
 </web-app>

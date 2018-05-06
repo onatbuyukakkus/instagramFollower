@@ -10,6 +10,8 @@ import javax.ws.rs.QueryParam;
 import javax.jms.Queue;
 import javax.jms.ConnectionFactory;
 import javax.annotation.Resource;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONObject;
 
 import user.User;
 import jms.MessageProducerJms;
@@ -31,7 +33,8 @@ public class UserRestService {
 
     /**
      * Add a user to system.
-     * @param user {@link User}
+     * @param username {@link String}
+     * @param password {@link String}
      * @return Http response
      */
     @POST
@@ -40,11 +43,13 @@ public class UserRestService {
     public Response addUser(@QueryParam("username") String username, @QueryParam("password") String password) {
         String message = "addUser/" + username + "/" + password;
         if(username == null || password == null) {
-            return Response.status(400).entity("Missing parameters.").build();
+            return Response.status(400).entity("missing parameters").build();
         }
         try {
             String response = MessageProducerJms.sendMessage(message, connectionFactory, addUserQueue);
-            return Response.status(200).entity(response).build();
+            JSONObject jO = new JSONObject();
+            jO.accumulate("response", response);
+            return Response.status(200).entity(jO.toString()).build();
         }
         catch(Exception e) {
             return Response.serverError().build();

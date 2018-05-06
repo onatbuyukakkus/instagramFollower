@@ -29,9 +29,16 @@ public class AddUserMdb extends MessageReceiver {
      */
     @Override
     public String parseMessage(String[] receivedInput) {
+        InstagramUtility instagram = new InstagramUtility();
         String username = receivedInput[1];
         String password = receivedInput[2];
-        return InstagramUtility.login(username, password);
-        //return Storage.addUser(receivedInput);
+
+        String loginSuccess = instagram.login(username, password);
+        if(loginSuccess == null) {
+            return "your credentials are wrong";
+        }
+        else {
+            return Storage.addUser(username, password);
+        }
     }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Instagram Follower</title>
+        <link rel="stylesheet" href="../../lib/sign.css">
+    </head>
+    <body>
+        <div class="login-page">
+            <div class="form">
+                <form class="login-form" id="sign-up-form">
+                    <input type="text" placeholder="username" id="username"/>
+                    <input type="password" placeholder="password" id="password"/>
+                    <button type="submit">sign up</button>
+                    <p class="message">already registered? <a href="sign-in.html">sign in</a></p>
+                    <div id="response_message"></div>
+                </form>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        $('.message a').click(function(){
+            $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+        });
+    </script>
+    <script src="/views/homepage/sign-up.js"></script>
+</html>
+
+

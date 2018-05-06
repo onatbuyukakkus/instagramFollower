@@ -23,16 +23,17 @@ public final class Storage {
     /**
      * Adding user to database/hash map storage of users.
      * If new user, the user is added to storage, if user already exists, nothing happens.
-     * @param receivedInput Array of {@link User} objects, each user has username and password
+     * @param username Possible object is {@link String}
+     * @param password Possible object is {@link String}
      * @return Message describing the outcome. Possible object is {@link String}
      */
-    public static String addUser(String[] receivedInput) {
-        if (!userStorage.containsKey(receivedInput[1])) {
-            User newUser = new User(receivedInput[1], receivedInput[2]);
-            userStorage.put(receivedInput[1], newUser);
-            return("New user created.");
+    public static String addUser(String username, String password) {
+        if (!userStorage.containsKey(username)) {
+            User newUser = new User(username, password);
+            userStorage.put(username, newUser);
+            return("new user created");
         } else {
-            return("User already exists.");
+            return("user already exists");
         }
     }
 
