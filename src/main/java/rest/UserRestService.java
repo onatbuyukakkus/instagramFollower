@@ -31,8 +31,12 @@ public class UserRestService {
     @Resource(mappedName = "java:jboss/exported/AddUserQueue")
     private Queue addUserQueue;
 
+    @Resource(mappedName = "java:jboss/exported/LoginUserQueue")
+    private Queue loginUserQueue;
+
     /**
      * Add a user to system.
+     *
      * @param username {@link String}
      * @param password {@link String}
      * @return Http response
@@ -42,7 +46,7 @@ public class UserRestService {
     @Produces(MediaType.TEXT_PLAIN)
     public Response addUser(@QueryParam("username") String username, @QueryParam("password") String password) {
         String message = "addUser/" + username + "/" + password;
-        if(username == null || password == null) {
+        if (username == null || password == null) {
             return Response.status(400).entity("missing parameters").build();
         }
         try {
@@ -50,8 +54,30 @@ public class UserRestService {
             JSONObject jO = new JSONObject();
             jO.accumulate("text", response);
             return Response.status(200).entity(jO.toString()).build();
+        } catch (Exception e) {
+            return Response.serverError().build();
         }
-        catch(Exception e) {
+    }
+
+    @POST
+    @Path("/login")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response login(@QueryParam("username") String username, @QueryParam("password") String password) {
+        String message = "loginUser/" + username + "/" + password;
+        if (username == null || password == null) {
+            return Response.status(400).entity("missing parameters").build();
+        }
+        try {
+            String response = MessageProducerJms.sendMessage(message, connectionFactory, loginUserQueue);
+            JSONObject jO = new JSONObject();
+            jO.accumulate("text", response);
+            if(response.equals("login success")) {
+                return Response.status(200).entity(jO.toString()).build();
+            }
+            else {
+                return Response.status(404).entity(jO.toString()).build();
+            }
+        } catch (Exception e) {
             return Response.serverError().build();
         }
     }

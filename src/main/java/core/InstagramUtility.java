@@ -13,8 +13,7 @@ public class InstagramUtility {
             return instagram.login().toString();
         }
         catch (Exception e) {
-           e.printStackTrace();
+            return null;
         }
-        return null;
     }
 }

@@ -38,6 +38,17 @@ public final class Storage {
     }
 
     /**
+     * Checking user in database/hash map storage of users.
+     * If user exist, return true, else return false.
+     * @param username Possible object is {@link String}
+     * @param password Possible object is {@link String}
+     * @return Outcome. Possible object is {@link Boolean}
+     */
+    public static boolean checkUser(String username, String password) {
+        return (userStorage.containsKey(username) && userStorage.get(username).getPassword().equals(password));
+    }
+
+    /**
      * Returning instance of Storage.
      * @return Possible object is {@link Storage}
      */
@@ -50,7 +61,7 @@ public final class Storage {
      * @param username The username associated with the specific {@link User} object
      * @return Possible object is {@link Storage}
      */
-    public static User getUserFromCpr(String username) {
+    public static User getUserFromUsername(String username) {
         return userStorage.get(username);
     }
 

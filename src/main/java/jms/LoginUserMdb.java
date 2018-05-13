@@ -14,11 +14,11 @@ import core.InstagramUtility;
 @MessageDriven(activationConfig = {
         @ActivationConfigProperty(
                 propertyName = "destination",
-                propertyValue = "java:jboss/exported/AddUserQueue"
+                propertyValue = "java:jboss/exported/LoginUserQueue"
         )
 })
 
-public class AddUserMdb extends MessageReceiver {
+public class LoginUserMdb extends MessageReceiver {
 
     /**
      * Handles received message from REST on form "messagetype"/username/password".
@@ -29,16 +29,14 @@ public class AddUserMdb extends MessageReceiver {
      */
     @Override
     public String parseMessage(String[] receivedInput) {
-        InstagramUtility instagram = new InstagramUtility();
         String username = receivedInput[1];
         String password = receivedInput[2];
 
-        String loginSuccess = instagram.login(username, password);
-        if(loginSuccess == null) {
-            return "no instagram account with these credentials";
+        if(Storage.checkUser(username, password)) {
+            return "login success";
         }
         else {
-            return Storage.addUser(username, password);
+            return "your credentials are wrong";
         }
     }
 }

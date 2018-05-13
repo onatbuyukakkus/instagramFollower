@@ -10,6 +10,7 @@
     z-index: 1;
     background: #FFFFFF;
     max-width: 360px;
+    max-height: 215px;
     margin: 0 auto 100px;
     padding: 45px;
     text-align: center;
@@ -28,7 +29,6 @@
 }
 .form button {
     font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
     outline: 0;
     background: #4CAF50;
     width: 100%;
@@ -50,6 +50,14 @@
 }
 .form .message a {
     color: #4CAF50;
+    text-decoration: none;
+}
+.form .success-message {
+    color: #000000;
+    text-decoration: none;
+}
+.form .fail-message {
+    color: #ff111f;
     text-decoration: none;
 }
 .form .register-form {
