@@ -7,6 +7,9 @@ import javax.jms.JMSException;
 import core.Storage;
 import core.InstagramUtility;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This is a message driven bean which listens to queue that is provided in ActivationConfigProperty tag.
  *
@@ -38,7 +41,12 @@ public class AddUserMdb extends MessageReceiver {
             return "no instagram account with these credentials";
         }
         else {
-            return Storage.addUser(username, password);
+            String storageSuccess = Storage.addUser(username, password);
+            if(storageSuccess == "new user created") {
+                Storage.addUserFollowers(username, instagram.getFollowers());
+                Storage.addUserFollowings(username, instagram.getFollowings());
+            }
+            return storageSuccess;
         }
     }
 }

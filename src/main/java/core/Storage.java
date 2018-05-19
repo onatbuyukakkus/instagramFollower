@@ -1,6 +1,7 @@
 package core;
 
 import java.util.HashMap;
+import java.util.List;
 
 import user.User;
 
@@ -17,7 +18,7 @@ public final class Storage {
      * Constructor
      */
     private Storage() {
-        userStorage = new HashMap<String, User>();         /* Storage containing all users */
+        userStorage = new HashMap<String, User>();
     }
 
     /**
@@ -35,6 +36,25 @@ public final class Storage {
         } else {
             return("user already exists");
         }
+    }
+
+    /**
+     * Adding user followers to database/hash map storage of users.
+     * @param username Possible object is {@link String}
+     * @param userFollowerList Possible object is {@link List<String>}
+     */
+    public static void addUserFollowers(String username, List<String> userFollowerList) {
+        userStorage.get(username).setFollowers(userFollowerList);
+    }
+
+    /**
+     * Adding user followings to database/hash map storage of users.
+     * If new user, the user is added to storage, if user already exists, nothing happens.
+     * @param username Possible object is {@link String}
+     * @param userFollowingList Possible object is {@link List<String>}
+     */
+    public static void addUserFollowings(String username, List<String> userFollowingList) {
+        userStorage.get(username).setFollowings(userFollowingList);
     }
 
     /**

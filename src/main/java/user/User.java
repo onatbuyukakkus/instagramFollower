@@ -1,9 +1,14 @@
 package user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
     private String username;
     private String password;
+    private List<String> followers;
+    private List<String> followings;
 
     /**
      * Constructor of class {@link User}.
@@ -16,6 +21,8 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.followers = new ArrayList<String>();
+        this.followings = new ArrayList<String>();
     }
 
     /**
@@ -48,5 +55,37 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * Get the followers of user.
+     * @return {@link List<String>}
+     */
+    public List<String> getFollowers() {
+        return followers;
+    }
+
+    /**
+     * Changes the followers to the given param
+     * @param followers allowed value {@link List<String>}
+     */
+    public void setFollowers(List<String> followers) {
+        this.followers = followers;
+    }
+
+    /**
+     * Get the followings of user.
+     * @return {@link List<String>}
+     */
+    public List<String> getFollowings() {
+        return followings;
+    }
+
+    /**
+     * Changes the followers to the given param
+     * @param followings allowed value {@link List<String>}
+     */
+    public void setFollowings(List<String> followings) {
+        this.followings = followings;
     }
 }
