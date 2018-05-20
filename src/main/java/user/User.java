@@ -10,14 +10,15 @@ public class User {
     private List<String> followers;
     private List<String> followings;
 
+
+    public User() {}
+
     /**
      * Constructor of class {@link User}.
      *
      * @param username username of user. Allowed object is {@link String}
      * @param password password of user. Allowed object is {@link String}
      */
-    public User() {}
-
     public User(String username, String password) {
         this.username = username;
         this.password = password;
@@ -88,4 +89,5 @@ public class User {
     public void setFollowings(List<String> followings) {
         this.followings = followings;
     }
+
 }

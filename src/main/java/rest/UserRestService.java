@@ -47,6 +47,9 @@ public class UserRestService {
     @Resource(mappedName = "java:jboss/exported/SetFollowingsUserQueue")
     private Queue setFollowingsUserQueue;
 
+    @Resource(mappedName = "java:jboss/exported/GetProfilePicQueue")
+    private Queue getProfilePicQueue;
+
     /**
      * Add a user to system.
      *
@@ -226,6 +229,24 @@ public class UserRestService {
             mainObject.put("startedFollowing", jA2);
 
             return Response.status(200).entity(mainObject.toString()).build();
+        } catch (Exception e) {
+            return Response.serverError().build();
+        }
+    }
+
+    @GET
+    @Path("/getprofilepic")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getProfilePic(@QueryParam("username") String username) {
+        String message = "setProfilePic/" + username;
+        if (username == null) {
+            return Response.status(400).entity("missing parameters").build();
+        }
+        try {
+            String response = MessageProducerJms.sendMessage(message, connectionFactory, getProfilePicQueue);
+            JSONObject jO = new JSONObject();
+            jO.accumulate("profilepicurl", response);
+            return Response.status(200).entity(jO.toString()).build();
         } catch (Exception e) {
             return Response.serverError().build();
         }

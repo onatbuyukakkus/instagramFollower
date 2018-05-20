@@ -18,11 +18,11 @@ import java.util.List;
 @MessageDriven(activationConfig = {
         @ActivationConfigProperty(
                 propertyName = "destination",
-                propertyValue = "java:jboss/exported/SetFollowersUserQueue"
+                propertyValue = "java:jboss/exported/GetProfilePicQueue"
         )
 })
 
-public class SetFollowersUserMdb extends MessageReceiver {
+public class GetProfilePicMdb extends MessageReceiver {
 
     /**
      * Handles received message from REST on form "messagetype"/username".
@@ -39,29 +39,8 @@ public class SetFollowersUserMdb extends MessageReceiver {
         User user =  Storage.getUserFromUsername(username);
         String password = user.getPassword();
         instagram.login(username, password);
-        List<String> instagramFollowers = new ArrayList<String>(instagram.getFollowers());
-        List<String> currentFollowers = new ArrayList<String>(user.getFollowers());
+        String profilePicUrl = instagram.getProfilePictureUrl();
 
-        List<String> stoppedFollower = new ArrayList<String>(currentFollowers);
-        stoppedFollower.removeAll(instagramFollowers);
-
-        List<String> startedFollower = new ArrayList<String>(instagramFollowers);
-        startedFollower.removeAll(currentFollowers);
-
-        Storage.addUserFollowers(username, instagramFollowers);
-
-        String response = "stoppedFollower/";
-        for(String follower : stoppedFollower) {
-            response += follower + "/";
-        }
-        response += "startedFollower/";
-        for(String follower : startedFollower) {
-            response += follower + "/";
-        }
-
-        if(response.length() > 0) {
-            response = response.substring(0, response.length() - 1); //remove last character
-        }
-        return response;
+        return profilePicUrl;
     }
 }

@@ -8,6 +8,7 @@ $(document).ready(function(){
             url: "http://139.59.135.39:9090/instagram-follower/rest/user/login?username=" + username + "&password=" + password,
             success: function(response) {
                 var result = JSON.parse(response);
+                localStorage.setItem("username",username);
                 window.location.href = "/instagram-follower/dashboard";
             },
             error: function(xhr) {

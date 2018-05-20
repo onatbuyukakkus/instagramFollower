@@ -49,7 +49,6 @@ public final class Storage {
 
     /**
      * Adding user followings to database/hash map storage of users.
-     * If new user, the user is added to storage, if user already exists, nothing happens.
      * @param username Possible object is {@link String}
      * @param userFollowingList Possible object is {@link List<String>}
      */

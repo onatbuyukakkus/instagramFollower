@@ -3,7 +3,9 @@ package core;
 import org.brunocvcunha.instagram4j.*;
 import org.brunocvcunha.instagram4j.requests.InstagramGetUserFollowersRequest;
 import org.brunocvcunha.instagram4j.requests.InstagramGetUserFollowingRequest;
+import org.brunocvcunha.instagram4j.requests.InstagramSearchUsernameRequest;
 import org.brunocvcunha.instagram4j.requests.payload.InstagramGetUserFollowersResult;
+import org.brunocvcunha.instagram4j.requests.payload.InstagramSearchUsernameResult;
 import org.brunocvcunha.instagram4j.requests.payload.InstagramUserSummary;
 
 import java.util.ArrayList;
@@ -54,5 +56,18 @@ public class InstagramUtility {
 
         }
         return followingUsernames;
+    }
+
+    public String getProfilePictureUrl(/*String username, String password*/) {
+        //login(username, password);
+        String result = "";
+        try {
+            InstagramSearchUsernameResult userResult = instagram.sendRequest(new InstagramSearchUsernameRequest(instagram.getUsername()));
+            result = userResult.getUser().profile_pic_url;
+        }
+        catch (Exception e) {
+
+        }
+        return result;
     }
 }

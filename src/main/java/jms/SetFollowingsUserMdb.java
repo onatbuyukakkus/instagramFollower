@@ -48,7 +48,7 @@ public class SetFollowingsUserMdb extends MessageReceiver {
         List<String> startedFollowing = new ArrayList<String>(instagramFollowings);
         startedFollowing.removeAll(currentFollowers);
 
-        user.setFollowings(instagramFollowings);
+        Storage.addUserFollowings(username, instagramFollowings);
 
         String response = "stoppedFollowing/";
         for(String follower : stoppedFollowing) {
